@@ -2,6 +2,26 @@
 
 This step implements the three core components of our RAG system.
 
+## 3.0 Core Libraries
+
+This project relies on two major libraries to handle the complexity of AI and document processing:
+
+### LangChain (`langchain`)
+[LangChain](https://js.langchain.com/) is our orchestration framework. It acts as the "glue" connecting different AI components.
+-   **Document Loaders**: We use `PDFLoader` to read binary PDF files.
+-   **Text Splitters**: `RecursiveCharacterTextSplitter` intelligently breaks text into semantic chunks.
+-   **Vector Stores**: Provides a standard interface for Supabase (and other DBs).
+-   **Chains**: Manages the flow of data (User Input → Retrieval → Prompt → LLM → Output).
+
+### PDF Parsing (`pdf-parse`)
+While we use LangChain's `PDFLoader`, under the hood it often relies on libraries like `pdf-parse` (or standard Web PDF APIs) to extract raw text from PDF binaries.
+-   **Input**: Binary buffer of a `.pdf` file.
+-   **Process**: Scans the file structure, handling font maps and content streams.
+-   **Output**: Pure text strings (metadata like page numbers are also extracted).
+-   *Note: This is critical because LLMs cannot "read" a PDF file directly; they need plain text.*
+
+---
+
 ## 3.1 Embeddings (`src/lib/ai/embeddings.ts`)
 
 **What are embeddings?**
