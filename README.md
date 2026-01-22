@@ -1,129 +1,97 @@
 # AI-Powered Knowledge Base (RAG)
 
-A modern, high-performance RAG (Retrieval-Augmented Generation) application built with Next.js, LangChain, and cutting-edge AI services.
+An advanced **Retrieval-Augmented Generation (RAG)** application dealing with your documents. Built with **Next.js**, **Supabase**, and **LangChain**, it allows you to upload documents and ask questions about them in natural language, receiving accurate, context-aware answers.
 
-## 🚀 Features
+## 🚀 Why This Project? (Features)
 
-- **Lightning-Fast Inference**: Powered by Groq's Llama 3 for ultra-fast responses
-- **Semantic Search**: Google Gemini embeddings for accurate document retrieval
-- **Scalable Storage**: Supabase with pgvector for efficient vector operations
-- **Modern UI**: Beautiful, responsive interface with dark mode
-- **PDF Support**: Upload and process PDF documents automatically
+This project bridges the gap between static documents and interactive AI.
+
+-   **🧠 Smart RAG Engine**: Uses Google Gemini embeddings and Groq (Llama 3) for lightning-fast, accurate answers.
+-   **💬 Persistent Chat**: Save your conversation history and pick up where you left off.
+-   **📂 Document Management**: Easily upload, list, and delete PDF documents from your knowledge base.
+-   **📱 PWA Ready**: Installable as a native-like app on mobile and desktop devices.
+-   **⚡ High Performance**: Built on Next.js 14 App Router and Supabase pgvector for sub-second retrieval.
+-   **🎨 Modern UI**: Features a premium dark mode, glassmorphism effects, and smooth animations.
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: Next.js 14+ (App Router), React, TypeScript, Tailwind CSS
-- **AI Orchestration**: LangChain.js
-- **LLM**: Groq (Llama 3.3 70B)
-- **Embeddings**: Google Gemini (text-embedding-004)
-- **Vector Database**: Supabase (PostgreSQL + pgvector)
-- **Icons**: Lucide React
+-   **Framework**: Next.js 15 (App Router, React 19)
+-   **Language**: TypeScript
+-   **Database**: Supabase (PostgreSQL + pgvector)
+-   **AI Logic**: LangChain.js
+-   **LLM Provider**: Groq (Llama 3.3 70B)
+-   **Embeddings**: Google Gemini (text-embedding-004)
+-   **Styling**: Tailwind CSS v4, Lucide React, Sonner (Toasts)
 
-## 📋 Prerequisites
+## 🏃 How to Get Started
 
-- Node.js 20+
-- npm or yarn
-- Supabase account
-- Groq API key
-- Google Gemini API key
+### Prerequisites
+-   Node.js 20+
+-   Supabase Account
+-   Groq API Key
+-   Google Gemini API Key
 
-## 🔧 Setup
+### Installation
 
-### 1. Clone and Install
+1.  **Clone the repository**
+    ```bash
+    git clone https://github.com/yourusername/ai-rag-knowledge-base.git
+    cd ai-rag-knowledge-base
+    ```
 
-```bash
-cd ai-rag-knowledge-base
-npm install
-```
+2.  **Install dependencies**
+    ```bash
+    npm install
+    # or
+    npm ci
+    ```
 
-### 2. Environment Variables
+3.  **Environment Setup**
+    Create a `.env.local` file in the root directory:
+    ```env
+    NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+    NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+    GROQ_API_KEY=your_groq_api_key
+    GOOGLE_GENAI_API_KEY=your_gemini_api_key
+    ```
 
-Create `.env.local` in the root directory:
+4.  **Database Initialization**
+    Run the SQL scripts located in `docs/` or `brain/` in your Supabase SQL Editor:
+    -   Enable `vector` extension.
+    -   Create `documents`, `chats`, and `messages` tables.
+    -   Create the `match_documents` function.
+    *(Refer to `docs/02-database-setup.md` for the exact queries)*
 
-```env
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-GROQ_API_KEY=your_groq_api_key
-GOOGLE_GENAI_API_KEY=your_gemini_api_key
-```
+5.  **Run the App**
+    ```bash
+    npm run dev
+    ```
+    Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-### 3. Database Setup
+## 📚 Where to Get Help
 
-Run the SQL commands in `docs/02-database-setup.md` in your Supabase SQL Editor to:
-- Enable pgvector extension
-- Create documents table
-- Create similarity search function
+We have detailed documentation in the `docs/` folder:
 
-### 4. Run Development Server
+-   [**Project Setup**](docs/01-initialization.md)
+-   [**Database Configuration**](docs/02-database-setup.md)
+-   [**Core AI Logic**](docs/03-core-ai-logic.md)
+-   [**API Reference**](docs/04-api-routes.md)
+-   [**UI Documentation**](docs/05-frontend-ui.md)
 
-```bash
-npm run dev
-```
+## 🤝 Contributing
 
-Open [http://localhost:3000](http://localhost:3000)
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-## 📖 Documentation
+1.  Fork the project
+2.  Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3.  Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4.  Push to the branch (`git push origin feature/AmazingFeature`)
+5.  Open a Pull Request
 
-Detailed step-by-step guides are available in the `docs/` folder:
+## 👤 Maintainers
 
-1. [01-initialization.md](docs/01-initialization.md) - Project setup
-2. [02-database-setup.md](docs/02-database-setup.md) - Supabase configuration
-3. [03-core-ai-logic.md](docs/03-core-ai-logic.md) - AI implementation
-4. [04-api-routes.md](docs/04-api-routes.md) - Backend API
-5. [05-frontend-ui.md](docs/05-frontend-ui.md) - UI components
-6. [06-testing-and-running.md](docs/06-testing-and-running.md) - Testing guide
+-   **Project Lead**: [Your Name/Handle]
 
-## 🎯 How It Works
+## 📄 License
 
-### RAG Pipeline
-
-1. **Document Upload**
-   - User uploads PDF
-   - Document is split into chunks
-   - Each chunk is converted to embeddings (Gemini)
-   - Embeddings stored in Supabase
-
-2. **Query Processing**
-   - User asks a question
-   - Question is converted to embedding
-   - Similar document chunks are retrieved
-   - Context + question sent to Groq (Llama 3)
-   - AI generates answer based on retrieved context
-
-### Architecture
-
-```
-User Question
-    ↓
-Gemini Embeddings
-    ↓
-Supabase Vector Search
-    ↓
-Retrieve Top 4 Chunks
-    ↓
-Groq (Llama 3) Generation
-    ↓
-AI Answer
-```
-
-## 🧪 Testing
-
-1. Upload a PDF document
-2. Wait for processing confirmation
-3. Ask questions about the document
-4. Receive AI-generated answers
-
-## 🚨 Troubleshooting
-
-See [docs/06-testing-and-running.md](docs/06-testing-and-running.md) for detailed troubleshooting steps.
-
-## 📝 License
-
-MIT
-
-## 🙏 Acknowledgments
-
-- Groq for ultra-fast LLM inference
-- Google for Gemini embeddings
-- Supabase for vector database
-- LangChain for AI orchestration
+Distributed under the MIT License. See `LICENSE` for more information.
