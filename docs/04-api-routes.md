@@ -76,5 +76,8 @@ Return AI answer
 - **Input:** Query parameter `?source=filename.pdf`
 - **Behavior:** Executes a SQL delete where `metadata->>'source'` matches the filename.
 
+i.e:DELETE FROM documents
+WHERE metadata->>'source' = 'compiler-optimization.pdf';
+
 ---
 *Next Step: Building the Frontend UI.*
