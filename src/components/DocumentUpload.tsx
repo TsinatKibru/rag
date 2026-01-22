@@ -1,22 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { Upload, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
+import { Upload, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+import { toast } from "sonner";
 
 export default function DocumentUpload() {
     const [file, setFile] = useState<File | null>(null);
     const [uploading, setUploading] = useState(false);
-    const [status, setStatus] = useState<{
-        type: "idle" | "success" | "error";
-        message: string;
-    }>({ type: "idle", message: "" });
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFile = e.target.files?.[0];
         if (selectedFile) {
             setFile(selectedFile);
-            setStatus({ type: "idle", message: "" });
         }
     };
 
@@ -24,7 +21,8 @@ export default function DocumentUpload() {
         if (!file) return;
 
         setUploading(true);
-        setStatus({ type: "idle", message: "" });
+        // Toast loading state
+        const toastId = toast.loading("Processing document...");
 
         try {
             const formData = new FormData();
@@ -38,22 +36,13 @@ export default function DocumentUpload() {
             const data = await response.json();
 
             if (response.ok) {
-                setStatus({
-                    type: "success",
-                    message: data.message || "Document uploaded successfully!",
-                });
+                toast.success(data.message || "Document uploaded successfully!", { id: toastId });
                 setFile(null);
             } else {
-                setStatus({
-                    type: "error",
-                    message: data.error || "Upload failed",
-                });
+                toast.error(data.error || "Upload failed", { id: toastId });
             }
         } catch {
-            setStatus({
-                type: "error",
-                message: "Network error. Please try again.",
-            });
+            toast.error("Network error. Please try again.", { id: toastId });
         } finally {
             setUploading(false);
         }
@@ -129,30 +118,6 @@ export default function DocumentUpload() {
                         )}
                     </button>
 
-                    {status.type !== "idle" && (
-                        <div
-                            className={cn(
-                                "flex items-center gap-3 p-4 rounded-xl",
-                                status.type === "success"
-                                    ? "bg-green-500/10 border border-green-500/20"
-                                    : "bg-red-500/10 border border-red-500/20"
-                            )}
-                        >
-                            {status.type === "success" ? (
-                                <CheckCircle2 className="w-5 h-5 text-green-400 flex-shrink-0" />
-                            ) : (
-                                <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0" />
-                            )}
-                            <p
-                                className={cn(
-                                    "text-sm font-medium",
-                                    status.type === "success" ? "text-green-300" : "text-red-300"
-                                )}
-                            >
-                                {status.message}
-                            </p>
-                        </div>
-                    )}
                 </div>
             </div>
         </div>

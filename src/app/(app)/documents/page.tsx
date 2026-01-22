@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Trash2, FileText, Loader2, Upload } from "lucide-react";
 import { cn } from "@/lib/utils";
 import DocumentUpload from "@/components/DocumentUpload";
+import { toast } from "sonner";
 
 interface Doc {
     source: string;
@@ -34,26 +35,40 @@ export default function DocumentsPage() {
         }
     };
 
+    // ... (existing code omitted)
+
     const handleDelete = async (source: string) => {
-        if (!confirm(`Are you sure you want to delete "${source}"?`)) return;
+        // Confirmation Toast
+        toast("Are you sure?", {
+            description: `This will permanently delete "${source}"`,
+            action: {
+                label: "Delete",
+                onClick: async () => {
+                    setDeleting(source);
+                    try {
+                        const res = await fetch(`/api/documents?source=${encodeURIComponent(source)}`, {
+                            method: "DELETE",
+                        });
 
-        setDeleting(source);
-        try {
-            const res = await fetch(`/api/documents?source=${encodeURIComponent(source)}`, {
-                method: "DELETE",
-            });
-
-            if (res.ok) {
-                setDocuments((prev) => prev.filter((d) => d.source !== source));
-            } else {
-                alert("Failed to delete document");
-            }
-        } catch (error) {
-            console.error("Delete error", error);
-            alert("Error deleting document");
-        } finally {
-            setDeleting(null);
-        }
+                        if (res.ok) {
+                            setDocuments((prev) => prev.filter((d) => d.source !== source));
+                            toast.success("Document deleted successfully");
+                        } else {
+                            toast.error("Failed to delete document");
+                        }
+                    } catch (error) {
+                        console.error("Delete error", error);
+                        toast.error("Error deleting document");
+                    } finally {
+                        setDeleting(null);
+                    }
+                },
+            },
+            cancel: {
+                label: "Cancel",
+                onClick: () => { },
+            },
+        });
     };
 
     // Callback to refresh list after upload

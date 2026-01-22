@@ -2,15 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { MessageSquare, Files } from "lucide-react";
+import { Files } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const items = [
-    {
-        href: "/chat",
-        label: "Chat",
-        icon: MessageSquare,
-    },
     {
         href: "/documents",
         label: "Documents",
