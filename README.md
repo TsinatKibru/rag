@@ -56,7 +56,7 @@ This project bridges the gap between static documents and interactive AI.
     ```
 
 4.  **Database Initialization**
-    Run the SQL scripts located in `docs/` or `brain/` in your Supabase SQL Editor:
+    Run the SQL scripts located in `docs/` in your Supabase SQL Editor:
     -   Enable `vector` extension.
     -   Create `documents`, `chats`, and `messages` tables.
     -   Create the `match_documents` function.
@@ -90,7 +90,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 👤 Maintainers
 
--   **Project Lead**: [Your Name/Handle]
+-   **Project Lead**: [Tsinat Kibru](https://github.com/TsinatKibru)
 
 ## 📄 License
 
