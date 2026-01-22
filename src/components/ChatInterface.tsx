@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import { Send, Loader2, Bot, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -10,6 +11,10 @@ interface Message {
 }
 
 export default function ChatInterface() {
+    const searchParams = useSearchParams();
+    const router = useRouter();
+    const chatIdParam = searchParams.get("id");
+
     const [messages, setMessages] = useState<Message[]>([]);
     const [input, setInput] = useState("");
     const [loading, setLoading] = useState(false);
@@ -20,8 +25,28 @@ export default function ChatInterface() {
     };
 
     useEffect(() => {
+        if (chatIdParam) {
+            fetchHistory(chatIdParam);
+        } else {
+            setMessages([]);
+        }
+    }, [chatIdParam]);
+
+    useEffect(() => {
         scrollToBottom();
     }, [messages]);
+
+    const fetchHistory = async (id: string) => {
+        try {
+            const res = await fetch(`/api/chats/${id}`);
+            const data = await res.json();
+            if (data.messages) {
+                setMessages(data.messages);
+            }
+        } catch (error) {
+            console.error("Failed to load history", error);
+        }
+    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -36,7 +61,10 @@ export default function ChatInterface() {
             const response = await fetch("/api/chat", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ question: input }),
+                body: JSON.stringify({
+                    question: input,
+                    chatId: chatIdParam
+                }),
             });
 
             const data = await response.json();
@@ -47,6 +75,11 @@ export default function ChatInterface() {
                     content: data.answer,
                 };
                 setMessages((prev) => [...prev, assistantMessage]);
+
+                // If it was a new chat, update URL to preserve context
+                if (!chatIdParam && data.chatId) {
+                    router.push(`/chat?id=${data.chatId}`);
+                }
             } else {
                 const errorMessage: Message = {
                     role: "assistant",
