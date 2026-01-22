@@ -63,4 +63,18 @@ Return AI answer
 - Output: `{ answer: "Based on the documents..." }`
 
 ---
+---
+
+## 4.3 Document Management Routes
+
+### List Documents (`GET /api/documents`)
+**Purpose:** Fetch a list of all unique documents currently stored in the vector database.
+- **Output:** JSON array of documents with `source` filename, `chunkCount`, and `uploadedAt`.
+
+### Delete Document (`DELETE /api/documents`)
+**Purpose:** Permanently remove a document and all its associated chunks.
+- **Input:** Query parameter `?source=filename.pdf`
+- **Behavior:** Executes a SQL delete where `metadata->>'source'` matches the filename.
+
+---
 *Next Step: Building the Frontend UI.*

@@ -1,99 +1,81 @@
-import ChatInterface from "@/components/ChatInterface";
-import DocumentUpload from "@/components/DocumentUpload";
-import { Brain, Zap, Database } from "lucide-react";
+import Link from "next/link";
+import { MessageSquare, Shield, Zap, type LucideIcon } from "lucide-react";
 
-export default function Home() {
+export default function LandingPage() {
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
-      {/* Header */}
-      <header className="border-b border-slate-800 bg-slate-900/50 backdrop-blur-sm sticky top-0 z-10">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl">
-              <Brain className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <h1 className="text-2xl font-bold text-white">
-                AI Knowledge Base
-              </h1>
-              <p className="text-slate-400 text-sm">
-                Powered by Groq, Gemini & Supabase
-              </p>
-            </div>
+    <div className="flex flex-col min-h-screen bg-black text-zinc-100">
+      {/* Navigation Header */}
+      <header className="px-6 py-4 flex items-center justify-between border-b border-zinc-900">
+        <div className="flex items-center gap-2 font-bold text-xl">
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center">
+            <span className="text-white">AI</span>
           </div>
+          <span>Knowledge Base</span>
         </div>
+        <nav>
+          <Link href="/chat" className="text-sm font-medium hover:text-blue-400 transition-colors">
+            Log In
+          </Link>
+        </nav>
       </header>
 
       {/* Hero Section */}
-      <section className="container mx-auto px-6 py-12">
-        <div className="text-center mb-12">
-          <h2 className="text-5xl font-bold text-white mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-            Your Intelligent Document Assistant
-          </h2>
-          <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-            Upload documents and ask questions. Get instant, accurate answers
-            powered by cutting-edge AI.
+      <main className="flex-1 flex flex-col items-center justify-center text-center p-6 pb-20">
+        <div className="max-w-3xl space-y-8">
+          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight bg-gradient-to-r from-zinc-100 via-zinc-400 to-zinc-600 bg-clip-text text-transparent pb-2">
+            Chat with your Documents
+          </h1>
+          <p className="text-xl text-zinc-400 max-w-2xl mx-auto">
+            Transform your static PDFs into an interactive knowledge base.
+            Upload, index, and ask questions instantly using advanced AI.
           </p>
-        </div>
 
-        {/* Features */}
-        <div className="grid md:grid-cols-3 gap-6 mb-12">
-          <div className="bg-gradient-to-br from-slate-900 to-slate-800 p-6 rounded-2xl border border-slate-700">
-            <div className="p-3 bg-blue-500/10 rounded-xl w-fit mb-4">
-              <Zap className="w-6 h-6 text-blue-400" />
-            </div>
-            <h3 className="text-xl font-bold text-white mb-2">
-              Lightning Fast
-            </h3>
-            <p className="text-slate-400 text-sm">
-              Groq delivers responses at incredible speeds with Llama 3
-            </p>
-          </div>
-
-          <div className="bg-gradient-to-br from-slate-900 to-slate-800 p-6 rounded-2xl border border-slate-700">
-            <div className="p-3 bg-purple-500/10 rounded-xl w-fit mb-4">
-              <Brain className="w-6 h-6 text-purple-400" />
-            </div>
-            <h3 className="text-xl font-bold text-white mb-2">
-              Smart Embeddings
-            </h3>
-            <p className="text-slate-400 text-sm">
-              Google Gemini creates semantic understanding of your documents
-            </p>
-          </div>
-
-          <div className="bg-gradient-to-br from-slate-900 to-slate-800 p-6 rounded-2xl border border-slate-700">
-            <div className="p-3 bg-green-500/10 rounded-xl w-fit mb-4">
-              <Database className="w-6 h-6 text-green-400" />
-            </div>
-            <h3 className="text-xl font-bold text-white mb-2">
-              Scalable Storage
-            </h3>
-            <p className="text-slate-400 text-sm">
-              Supabase pgvector handles millions of document chunks efficiently
-            </p>
+          <div className="pt-8">
+            <Link
+              href="/chat"
+              className="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-black bg-white rounded-full hover:bg-zinc-200 transition-all transform hover:scale-105"
+            >
+              Get Started Now
+            </Link>
           </div>
         </div>
 
-        {/* Upload Section */}
-        <div className="mb-12">
-          <DocumentUpload />
+        {/* Feature Grid */}
+        <div className="grid md:grid-cols-3 gap-8 mt-24 max-w-5xl w-full text-left">
+          <FeatureCard
+            icon={Zap}
+            title="Instant Answers"
+            description="Powered by Groq and Llama 3 for lightning-fast responses."
+          />
+          <FeatureCard
+            icon={MessageSquare}
+            title="Context Aware"
+            description="Uses RAG technology to understand the exact context of your documents."
+          />
+          <FeatureCard
+            icon={Shield}
+            title="Secure & Private"
+            description="Your documents are stored securely with vector encryption."
+          />
         </div>
-
-        {/* Chat Section */}
-        <div>
-          <ChatInterface />
-        </div>
-      </section>
+      </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-800 mt-12">
-        <div className="container mx-auto px-6 py-6">
-          <p className="text-center text-slate-500 text-sm">
-            Built with Next.js, LangChain, Groq, Gemini & Supabase
-          </p>
-        </div>
+      <footer className="py-8 text-center text-zinc-600 text-sm border-t border-zinc-900">
+        © 2026 AI Knowledge Base. All rights reserved.
       </footer>
-    </main>
+    </div>
   );
+}
+
+function FeatureCard({ icon: Icon, title, description }: { icon: LucideIcon, title: string, description: string }) {
+  return (
+    <div className="p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800">
+      <div className="w-12 h-12 rounded-lg bg-zinc-800 flex items-center justify-center mb-4 text-zinc-100">
+        <Icon size={24} />
+      </div>
+      <h3 className="text-lg font-bold mb-2">{title}</h3>
+      <p className="text-zinc-400 text-sm leading-relaxed">{description}</p>
+    </div>
+  )
 }

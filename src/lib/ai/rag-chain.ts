@@ -1,3 +1,5 @@
+import { Document } from "@langchain/core/documents";
+
 import { ChatGroq } from "@langchain/groq";
 import { ChatPromptTemplate } from "@langchain/core/prompts";
 import { StringOutputParser } from "@langchain/core/output_parsers";
@@ -44,7 +46,7 @@ Answer:
 /**
  * Format retrieved documents into a single context string
  */
-const formatDocs = (docs: any[]) => {
+const formatDocs = (docs: Document[]) => {
     return docs.map((doc) => doc.pageContent).join("\n\n");
 };
 

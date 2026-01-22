@@ -49,7 +49,7 @@ export default function DocumentUpload() {
                     message: data.error || "Upload failed",
                 });
             }
-        } catch (error) {
+        } catch {
             setStatus({
                 type: "error",
                 message: "Network error. Please try again.",

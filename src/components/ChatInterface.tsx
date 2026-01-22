@@ -54,7 +54,7 @@ export default function ChatInterface() {
                 };
                 setMessages((prev) => [...prev, errorMessage]);
             }
-        } catch (error) {
+        } catch {
             const errorMessage: Message = {
                 role: "assistant",
                 content: "Network error. Please check your connection.",
