@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PDFLoader } from "@langchain/community/document_loaders/fs/pdf";
+import { TextLoader } from "@langchain/community/document_loaders/fs/text";
 import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
 import { vectorStore } from "@/lib/ai/vectorstore";
 import { writeFile, unlink } from "fs/promises";
@@ -9,15 +10,6 @@ import { join } from "path";
  * POST /api/upload
  * 
  * Handles document upload and ingestion into the knowledge base.
- * 
- * Process:
- * 1. Receive PDF file from client
- * 2. Save temporarily to disk
- * 3. Load and parse PDF
- * 4. Split into chunks
- * 5. Generate embeddings
- * 6. Store in Supabase
- * 7. Clean up temp file
  */
 export async function POST(request: NextRequest) {
     try {
@@ -32,9 +24,10 @@ export async function POST(request: NextRequest) {
         }
 
         // Validate file type
-        if (file.type !== "application/pdf") {
+        const validTypes = ["application/pdf", "text/plain", "text/markdown"];
+        if (!validTypes.includes(file.type)) {
             return NextResponse.json(
-                { error: "Only PDF files are supported" },
+                { error: "Only PDF, TXT, and MD files are supported" },
                 { status: 400 }
             );
         }
@@ -42,20 +35,27 @@ export async function POST(request: NextRequest) {
         // Save file temporarily
         const bytes = await file.arrayBuffer();
         const buffer = Buffer.from(bytes);
-        const tempPath = join("/tmp", `upload-${Date.now()}.pdf`);
+        // Use original extension for loader detection if needed, or generic
+        const extension = file.name.split('.').pop();
+        const tempPath = join("/tmp", `upload-${Date.now()}.${extension}`);
         await writeFile(tempPath, buffer);
 
         try {
-            // Load PDF
-            const loader = new PDFLoader(tempPath);
+            // Select Loader based on file type
+            let loader;
+            if (file.type === "application/pdf") {
+                loader = new PDFLoader(tempPath);
+            } else {
+                // TextLoader handles both .txt and .md well as plain text
+                loader = new TextLoader(tempPath);
+            }
+
             const docs = await loader.load();
 
             // Split into chunks
-            // Why? Large documents need to be broken into smaller pieces
-            // for more precise retrieval and to fit in context windows
             const textSplitter = new RecursiveCharacterTextSplitter({
-                chunkSize: 1000, // Characters per chunk
-                chunkOverlap: 200, // Overlap to maintain context between chunks
+                chunkSize: 1000,
+                chunkOverlap: 200,
             });
 
             const splitDocs = await textSplitter.splitDocuments(docs);
@@ -71,9 +71,6 @@ export async function POST(request: NextRequest) {
             }));
 
             // Store in vector database
-            // This will:
-            // 1. Generate embeddings for each chunk
-            // 2. Insert into Supabase
             await vectorStore.addDocuments(docsWithMetadata);
 
             return NextResponse.json({
@@ -87,11 +84,6 @@ export async function POST(request: NextRequest) {
         }
     } catch (error) {
         console.error("Upload error:", error);
-        console.error("Error details:", {
-            message: error instanceof Error ? error.message : String(error),
-            stack: error instanceof Error ? error.stack : undefined,
-            name: error instanceof Error ? error.name : undefined
-        });
         return NextResponse.json(
             { error: "Failed to process document" },
             { status: 500 }

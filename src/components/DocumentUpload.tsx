@@ -58,7 +58,7 @@ export default function DocumentUpload() {
                     <div>
                         <h2 className="text-2xl font-bold text-white">Upload Document</h2>
                         <p className="text-slate-400 text-sm">
-                            Add PDFs to your knowledge base
+                            Add documents to your knowledge base
                         </p>
                     </div>
                 </div>
@@ -67,7 +67,7 @@ export default function DocumentUpload() {
                     <div className="relative">
                         <input
                             type="file"
-                            accept=".pdf"
+                            accept=".pdf,.txt,.md"
                             onChange={handleFileChange}
                             className="hidden"
                             id="file-upload"
@@ -86,7 +86,7 @@ export default function DocumentUpload() {
                             <div className="text-center">
                                 <Upload className="w-10 h-10 mx-auto mb-2 text-slate-400" />
                                 <p className="text-slate-300 font-medium">
-                                    {file ? file.name : "Choose a PDF file"}
+                                    {file ? file.name : "Choose a PDF, TXT, or MD file"}
                                 </p>
                                 <p className="text-slate-500 text-sm mt-1">
                                     Click to browse or drag and drop
