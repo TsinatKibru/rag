@@ -8,11 +8,11 @@ API routes handle communication between the frontend and our AI backend.
 
 **Flow:**
 ```
-User uploads PDF
+User uploads Document (PDF/MD/TXT)
     ↓
 Save to /tmp temporarily
     ↓
-PDFLoader extracts text
+Loader (PDFLoader/TextLoader) extracts text
     ↓
 RecursiveCharacterTextSplitter breaks into chunks
     ↓

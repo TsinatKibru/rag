@@ -24,10 +24,10 @@ The frontend provides a beautiful, modern interface for interacting with the AI 
 - Drag-and-drop file upload
 - Real-time upload progress
 - Success/error notifications
-- PDF validation
+- File validation (PDF, TXT, MD)
 
 **User Flow:**
-1. Click or drag PDF file
+1. Click or drag a file (PDF, TXT, MD)
 2. File name displays
 3. Click "Upload to Knowledge Base"
 4. See processing status

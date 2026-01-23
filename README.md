@@ -8,7 +8,7 @@ This project bridges the gap between static documents and interactive AI.
 
 -   **🧠 Smart RAG Engine**: Uses Google Gemini embeddings and Groq (Llama 3) for lightning-fast, accurate answers.
 -   **💬 Persistent Chat**: Save your conversation history and pick up where you left off.
--   **📂 Document Management**: Easily upload, list, and delete PDF documents from your knowledge base.
+-   **📂 Document Management**: Easily upload, list, and delete PDF, Markdown, and Text documents from your knowledge base.
 -   **📱 PWA Ready**: Installable as a native-like app on mobile and desktop devices.
 -   **⚡ High Performance**: Built on Next.js 14 App Router and Supabase pgvector for sub-second retrieval.
 -   **🎨 Modern UI**: Features a premium dark mode, glassmorphism effects, and smooth animations.

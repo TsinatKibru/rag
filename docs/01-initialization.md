@@ -13,7 +13,7 @@ Successfully initialized the Next.js environment for our RAG application.
 - `@langchain/groq`: Integration for high-speed Llama 3 inference.
 - `@langchain/google-genai`: Integration for Gemini vector embeddings.
 - `@supabase/supabase-js`: Client for our Vector Database.
-- `pdf-parse`: For processing uploaded PDF documents.
+- `pdf-parse`: For processing uploaded PDF documents (plus built-in support for TXT and MD).
 - `lucide-react`: For modern UI icons.
 
 ## 1.3 Environment Configuration

@@ -8,7 +8,7 @@ This project relies on two major libraries to handle the complexity of AI and do
 
 ### LangChain (`langchain`)
 [LangChain](https://js.langchain.com/) is our orchestration framework. It acts as the "glue" connecting different AI components.
--   **Document Loaders**: We use `PDFLoader` to read binary PDF files.
+-   **Document Loaders**: We use `PDFLoader` for binary PDF files and a custom `TextLoader` for Markdown and Text files.
 -   **Text Splitters**: `RecursiveCharacterTextSplitter` intelligently breaks text into semantic chunks.
 -   **Vector Stores**: Provides a standard interface for Supabase (and other DBs).
 -   **Chains**: Manages the flow of data (User Input → Retrieval → Prompt → LLM → Output).
