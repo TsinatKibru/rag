@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PDFLoader } from "@langchain/community/document_loaders/fs/pdf";
-import { TextLoader } from "@langchain/community/document_loaders/fs/text";
+import { TextLoader } from "@/lib/loaders/text";
 import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
 import { vectorStore } from "@/lib/ai/vectorstore";
 import { writeFile, unlink } from "fs/promises";
