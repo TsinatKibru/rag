@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Upload, Loader2 } from "lucide-react";
+import { Upload, Loader2, PlusCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 import { toast } from "sonner";
@@ -50,21 +50,21 @@ export default function DocumentUpload() {
 
     return (
         <div className="w-full max-w-2xl mx-auto">
-            <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-8 shadow-2xl border border-slate-700">
-                <div className="flex items-center gap-3 mb-6">
-                    <div className="p-3 bg-blue-500/10 rounded-xl">
-                        <Upload className="w-6 h-6 text-blue-400" />
+            <div className="py-8 md:py-12">
+                <div className="flex items-center gap-5 mb-10">
+                    <div className="p-4 bg-primary/10 rounded-[22px] border border-primary/20 shadow-sm">
+                        <Upload className="w-7 h-7 text-primary" />
                     </div>
                     <div>
-                        <h2 className="text-2xl font-bold text-white">Upload Document</h2>
-                        <p className="text-slate-400 text-sm">
-                            Add documents to your knowledge base
+                        <h2 className="text-3xl font-bold tracking-tighter text-foreground">Ingest Knowledge</h2>
+                        <p className="text-muted-foreground/60 text-sm font-semibold uppercase tracking-widest mt-0.5">
+                            PDF • TXT • MD Support
                         </p>
                     </div>
                 </div>
 
-                <div className="space-y-4">
-                    <div className="relative">
+                <div className="space-y-10">
+                    <div className="relative group">
                         <input
                             type="file"
                             accept=".pdf,.txt,.md"
@@ -76,20 +76,22 @@ export default function DocumentUpload() {
                         <label
                             htmlFor="file-upload"
                             className={cn(
-                                "flex items-center justify-center w-full p-6 border-2 border-dashed rounded-xl cursor-pointer transition-all",
+                                "flex items-center justify-center w-full p-16 border-2 border-dashed rounded-[32px] cursor-pointer transition-all",
                                 file
-                                    ? "border-blue-500 bg-blue-500/5"
-                                    : "border-slate-600 hover:border-slate-500 bg-slate-800/50",
+                                    ? "border-primary bg-primary/5 shadow-inner"
+                                    : "border-border/40 hover:border-primary/20 bg-muted/10 hover:bg-muted/20 shadow-sm",
                                 uploading && "opacity-50 cursor-not-allowed"
                             )}
                         >
                             <div className="text-center">
-                                <Upload className="w-10 h-10 mx-auto mb-2 text-slate-400" />
-                                <p className="text-slate-300 font-medium">
-                                    {file ? file.name : "Choose a PDF, TXT, or MD file"}
+                                <div className="w-20 h-20 bg-background rounded-3xl flex items-center justify-center mx-auto mb-6 border border-border/30 group-hover:border-primary/20 transition-all shadow-sm group-hover:scale-105">
+                                    <PlusCircle className={cn("w-10 h-10 transition-colors", file ? "text-primary" : "text-muted-foreground/30")} />
+                                </div>
+                                <p className="text-foreground font-bold text-xl tracking-tight">
+                                    {file ? file.name : "Select Document"}
                                 </p>
-                                <p className="text-slate-500 text-sm mt-1">
-                                    Click to browse or drag and drop
+                                <p className="text-muted-foreground/40 text-sm mt-2 font-bold uppercase tracking-widest">
+                                    {file ? `${(file.size / 1024).toFixed(1)} KB` : "Drop file anywhere or browse"}
                                 </p>
                             </div>
                         </label>
@@ -99,25 +101,24 @@ export default function DocumentUpload() {
                         onClick={handleUpload}
                         disabled={!file || uploading}
                         className={cn(
-                            "w-full py-3 px-6 rounded-xl font-semibold transition-all flex items-center justify-center gap-2",
+                            "w-full py-5 px-8 rounded-2xl font-black transition-all flex items-center justify-center gap-4 text-xs tracking-[0.2em] uppercase",
                             file && !uploading
-                                ? "bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white shadow-lg shadow-blue-500/25"
-                                : "bg-slate-700 text-slate-400 cursor-not-allowed"
+                                ? "bg-primary text-primary-foreground shadow-2xl shadow-primary/20 hover:scale-[1.01] active:scale-[0.99] hover:opacity-95"
+                                : "bg-muted text-muted-foreground/30 cursor-not-allowed border border-border/20"
                         )}
                     >
                         {uploading ? (
                             <>
                                 <Loader2 className="w-5 h-5 animate-spin" />
-                                Processing...
+                                Analyzing...
                             </>
                         ) : (
                             <>
                                 <Upload className="w-5 h-5" />
-                                Upload to Knowledge Base
+                                Process & Index
                             </>
                         )}
                     </button>
-
                 </div>
             </div>
         </div>
