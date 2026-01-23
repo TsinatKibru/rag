@@ -1,29 +1,27 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fbfbfd;
-  /* slightly softer white */
+  --background: #ffffff;
   --foreground: #09090b;
   --card: #ffffff;
   --card-foreground: #09090b;
   --popover: #ffffff;
   --popover-foreground: #09090b;
-  --primary: #4f46e5;
-  --primary-foreground: #f8fafc;
-  --secondary: #f4f4f5;
-  /* zinc-100 */
-  --secondary-foreground: #0f172a;
-  --muted: #f4f4f5;
-  --muted-foreground: #71717a;
-  /* zinc-500 */
-  --accent: #f4f4f5;
-  --accent-foreground: #0f172a;
-  --border: #e2e2e7;
-  --input: #e2e2e7;
-  --ring: #4f46e5;
-  --shadow-soft: 0 1px 3px rgba(0, 0, 0, 0.02), 0 4px 12px rgba(0, 0, 0, 0.03);
-  --shadow-premium: 0 1px 2px rgba(0, 0, 0, 0.01), 0 8px 16px -4px rgba(0, 0, 0, 0.04), 0 16px 32px -8px rgba(0, 0, 0, 0.08);
-  --radius-premium: 24px;
+  --primary: #10a37f;
+  --primary-foreground: #ffffff;
+  --secondary: #f7f7f8;
+  --secondary-foreground: #09090b;
+  --muted: #f7f7f8;
+  --muted-foreground: #6e6e80;
+  --accent: #f7f7f8;
+  --accent-foreground: #09090b;
+  --border: #d9d9e3;
+  --input: #d9d9e3;
+  --ring: #10a37f;
+  --shadow-soft: 0 2px 6px rgba(0, 0, 0, 0.05);
+  --shadow-premium: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --radius-standard: 12px;
+  --radius-pill: 9999px;
 }
 
 @theme inline {
@@ -34,28 +32,27 @@
 }
 
 .dark {
-  --background: #09090b;
-  --foreground: #fafafa;
-  --card: #09090b;
-  --card-foreground: #fafafa;
-  --popover: #09090b;
-  --popover-foreground: #fafafa;
-  --primary: #6366f1;
-  --primary-foreground: #f8fafc;
-  --secondary: #18181b;
-  /* zinc-900 */
-  --secondary-foreground: #fafafa;
-  --muted: #18181b;
-  --muted-foreground: #71717a;
-  /* zinc-500 */
-  --accent: #18181b;
-  --accent-foreground: #fafafa;
-  --border: #1d1d20;
-  --input: #1d1d20;
-  --ring: #6366f1;
+  --background: #212121;
+  --foreground: #ececf1;
+  --card: #212121;
+  --card-foreground: #ececf1;
+  --popover: #212121;
+  --popover-foreground: #ececf1;
+  --primary: #10a37f;
+  --primary-foreground: #ffffff;
+  --secondary: #2f2f2f;
+  --secondary-foreground: #ececf1;
+  --muted: #2f2f2f;
+  --muted-foreground: #acacbe;
+  --accent: #2f2f2f;
+  --accent-foreground: #ececf1;
+  --border: #424242;
+  --input: #424242;
+  --ring: #10a37f;
   --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.3);
-  --shadow-premium: 0 1px 2px rgba(0, 0, 0, 0.2), 0 10px 20px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.02), 0 20px 40px -10px rgba(0, 0, 0, 0.5);
-  --radius-premium: 24px;
+  --shadow-premium: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --radius-standard: 12px;
+  --radius-pill: 9999px;
 }
 
 body {

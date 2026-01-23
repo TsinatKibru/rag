@@ -83,64 +83,64 @@ export default function DocumentsPage() {
     // Let's stick to the request: "move the document upload". 
 
     return (
-        <div className="flex flex-col gap-14 max-w-4xl mx-auto w-full pb-32 pt-6">
-            <header className="flex items-center justify-between pb-8">
-                <div className="flex items-center gap-5">
-                    <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center border border-primary/20 shadow-sm">
-                        <FileText className="text-primary w-7 h-7" />
+        <div className="flex flex-col gap-10 max-w-4xl mx-auto w-full pb-20 pt-6 px-4 md:px-8">
+            <header className="flex items-center justify-between pb-6 border-b border-border">
+                <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center border border-primary/20">
+                        <FileText className="text-primary w-6 h-6" />
                     </div>
                     <div>
-                        <h1 className="text-3xl font-bold tracking-tighter text-foreground">Managed Library</h1>
-                        <p className="text-muted-foreground/60 text-[10px] font-black uppercase tracking-[0.2em] mt-1">
-                            {documents.length} Items Indexed
+                        <h1 className="text-2xl font-bold tracking-tight text-foreground">Documents</h1>
+                        <p className="text-muted-foreground/60 text-xs font-medium mt-0.5">
+                            {documents.length} files in your library
                         </p>
                     </div>
                 </div>
                 <button
                     onClick={fetchDocuments}
-                    className="p-3 text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-xl transition-all border border-transparent hover:border-primary/10"
+                    className="p-2.5 text-muted-foreground hover:text-primary hover:bg-muted rounded-lg transition-all border border-transparent"
                 >
                     <Loader2 className={cn("w-5 h-5", isLoading && "animate-spin")} />
                 </button>
             </header>
 
-            {/* Upload Section - No more boxed card */}
-            <section className="relative">
+            {/* Upload Section */}
+            <section>
                 <DocumentUpload />
             </section>
 
             {/* List Section */}
-            <section className="space-y-6">
-                <div className="flex items-center justify-between px-2">
-                    <h2 className="text-[11px] font-black uppercase tracking-[0.3em] text-muted-foreground/40">Knowledge Inventory</h2>
+            <section className="space-y-4">
+                <div className="flex items-center justify-between px-1">
+                    <h2 className="text-sm font-semibold text-muted-foreground/60">All Documents</h2>
                 </div>
 
                 {isLoading ? (
-                    <div className="flex justify-center p-20">
-                        <Loader2 className="w-10 h-10 animate-spin text-primary/10" />
+                    <div className="flex justify-center p-16">
+                        <Loader2 className="w-8 h-8 animate-spin text-primary/20" />
                     </div>
                 ) : documents.length === 0 ? (
-                    <div className="text-center p-24 bg-muted/5 rounded-[40px] border border-border/30 border-dashed">
-                        <p className="text-muted-foreground/40 font-bold uppercase tracking-widest text-sm">Library is empty</p>
-                        <p className="text-xs text-muted-foreground/20 mt-2 font-bold italic">Upload documents to populate your core</p>
+                    <div className="text-center p-16 bg-muted/20 rounded-2xl border border-dashed border-border">
+                        <p className="text-muted-foreground/60 font-medium text-sm">No documents found</p>
+                        <p className="text-xs text-muted-foreground/40 mt-1">Upload files to start using them in chat</p>
                     </div>
                 ) : (
-                    <div className="grid gap-3">
+                    <div className="grid gap-2">
                         {documents.map((doc) => (
                             <div
                                 key={doc.source}
-                                className="group flex items-center justify-between p-5 bg-card hover:bg-muted/10 rounded-[28px] border border-border/30 hover:border-primary/20 hover:shadow-xl hover:shadow-primary/[0.02] transition-all hover:translate-y-[-1px]"
+                                className="group flex items-center justify-between p-4 bg-card hover:bg-muted/50 rounded-xl border border-border transition-all"
                             >
-                                <div className="flex items-center gap-5">
-                                    <div className="w-14 h-14 bg-muted/30 rounded-2xl flex items-center justify-center text-muted-foreground/30 group-hover:text-primary group-hover:bg-primary/5 transition-all border border-border/30 group-hover:border-primary/10 shadow-sm">
-                                        <FileText className="w-7 h-7" />
+                                <div className="flex items-center gap-4">
+                                    <div className="w-12 h-12 bg-muted rounded-lg flex items-center justify-center text-muted-foreground/40 group-hover:text-primary group-hover:bg-primary/10 transition-all">
+                                        <FileText className="w-6 h-6" />
                                     </div>
                                     <div>
-                                        <h3 className="font-bold text-foreground group-hover:text-primary transition-colors tracking-tight text-lg">{doc.source}</h3>
-                                        <div className="flex items-center gap-4 text-[10px] text-muted-foreground/40 mt-1.5 font-black uppercase tracking-widest">
+                                        <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors text-base">{doc.source}</h3>
+                                        <div className="flex items-center gap-3 text-xs text-muted-foreground/50 mt-1">
                                             <span>{new Date(doc.uploadedAt).toLocaleDateString()}</span>
                                             <span className="w-1 h-1 bg-border rounded-full" />
-                                            <span className="text-primary/60">{doc.chunkCount} Context Chunks</span>
+                                            <span>{doc.chunkCount} chunks</span>
                                         </div>
                                     </div>
                                 </div>
@@ -149,10 +149,9 @@ export default function DocumentsPage() {
                                     onClick={() => handleDelete(doc.source)}
                                     disabled={deleting === doc.source}
                                     className={cn(
-                                        "p-3.5 text-muted-foreground/30 hover:text-red-500 hover:bg-red-500/5 rounded-2xl transition-all border border-transparent hover:border-red-500/10",
+                                        "p-2 text-muted-foreground/40 hover:text-red-500 hover:bg-red-500/5 rounded-lg transition-all",
                                         deleting === doc.source && "opacity-50 cursor-not-allowed"
                                     )}
-                                    title="Eject from library"
                                 >
                                     {deleting === doc.source ? (
                                         <Loader2 className="w-5 h-5 animate-spin" />

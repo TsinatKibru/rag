@@ -110,44 +110,44 @@ export default function ChatInterface() {
     return (
         <div className="w-full max-w-4xl mx-auto h-full flex flex-col">
             <div className="flex-1 flex flex-col h-full overflow-hidden">
-                {/* Header - High-end Glassmorphism */}
-                <div className="px-6 py-6 md:px-8 md:pb-10 flex items-center justify-between">
-                    <div className="flex items-center gap-5">
-                        <div className="w-12 h-12 bg-primary/10 rounded-[18px] flex items-center justify-center border border-primary/20 shadow-premium">
+                {/* Header - Simple and Clean */}
+                <div className="px-6 py-4 md:px-8 border-b border-border bg-card flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center border border-primary/20">
                             <Bot className="w-6 h-6 text-primary" />
                         </div>
                         <div>
-                            <h2 className="text-xl md:text-2xl font-black tracking-tight text-foreground leading-none">Insight AI</h2>
-                            <p className="text-muted-foreground text-[10px] font-black uppercase tracking-[0.25em] mt-1.5 opacity-60">
-                                Neural Search • Enterprise Context
+                            <h2 className="text-xl font-bold tracking-tight text-foreground">Assistant</h2>
+                            <p className="text-muted-foreground text-[10px] font-medium uppercase tracking-wider">
+                                Powered by RAG Engine
                             </p>
                         </div>
                     </div>
                 </div>
 
-                {/* Messages Area - Refined spacing and depth */}
-                <div className="flex-1 overflow-y-auto space-y-10 custom-scrollbar px-6 md:px-8 pb-10">
+                {/* Messages Area - Clean and Balanced */}
+                <div className="flex-1 overflow-y-auto space-y-8 custom-scrollbar px-6 md:px-8 py-8">
                     {messages.length === 0 ? (
-                        <div className="h-full flex flex-col items-center justify-center py-20">
-                            <div className="text-center mb-10">
-                                <div className="w-24 h-24 bg-muted/20 rounded-[36px] flex items-center justify-center mx-auto mb-8 border border-border/20 shadow-premium group hover:scale-[1.02] transition-all">
-                                    <Bot className="w-12 h-12 text-muted-foreground/20 group-hover:text-primary/40 transition-colors" />
+                        <div className="h-full flex flex-col items-center justify-center py-12">
+                            <div className="text-center mb-8">
+                                <div className="w-16 h-16 bg-muted/20 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-border/20">
+                                    <Bot className="w-10 h-10 text-muted-foreground/30" />
                                 </div>
-                                <h3 className="text-3xl font-black mb-3 tracking-tighter text-foreground">How can I help?</h3>
-                                <p className="text-muted-foreground/50 max-w-sm mx-auto text-sm font-semibold leading-relaxed tracking-tight">
-                                    I'm your intelligent knowledge assistant. Ask me anything about your uploaded workspace.
+                                <h3 className="text-2xl font-bold mb-3 tracking-tight">Welcome to Chat</h3>
+                                <p className="text-muted-foreground/60 max-w-sm mx-auto text-sm font-medium leading-relaxed">
+                                    Ask anything about your documents. I'm here to help you retrieve information.
                                 </p>
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 w-full max-w-2xl px-2">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 w-full max-w-2xl">
                                 {SUGGESTIONS.map((suggestion, idx) => (
                                     <button
                                         key={idx}
                                         onClick={() => handleSuggestionClick(suggestion)}
-                                        className="text-left p-5 rounded-[22px] bg-card/50 hover:bg-muted/30 border border-border/40 hover:border-primary/20 transition-all text-xs font-bold flex items-center justify-between group shadow-soft hover:shadow-premium hover:-translate-y-0.5"
+                                        className="text-left p-4 rounded-xl bg-card hover:bg-muted border border-border/60 transition-all text-sm font-semibold flex items-center justify-between group"
                                     >
-                                        <span className="text-muted-foreground/70 group-hover:text-foreground">{suggestion}</span>
-                                        <ArrowRight className="w-4 h-4 opacity-0 -translate-x-3 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-primary" />
+                                        <span className="text-muted-foreground group-hover:text-foreground">{suggestion}</span>
+                                        <ArrowRight className="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-primary" />
                                     </button>
                                 ))}
                             </div>
@@ -157,63 +157,62 @@ export default function ChatInterface() {
                             <div
                                 key={index}
                                 className={cn(
-                                    "flex gap-5",
+                                    "flex gap-4",
                                     message.role === "user" ? "justify-end" : "justify-start"
                                 )}
                             >
                                 {message.role === "assistant" && (
-                                    <div className="w-10 h-10 rounded-[16px] bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1 border border-primary/20 shadow-soft">
+                                    <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1 border border-primary/20">
                                         <Bot className="w-5 h-5 text-primary" />
                                     </div>
                                 )}
                                 <div
                                     className={cn(
-                                        "max-w-[85%] md:max-w-[78%] px-5 py-4 shadow-premium",
+                                        "max-w-[85%] md:max-w-[75%] px-5 py-4 rounded-2xl",
                                         message.role === "user"
-                                            ? "bg-gradient-to-br from-primary to-indigo-600 text-primary-foreground rounded-[24px] rounded-br-[4px] font-medium"
-                                            : "bg-card text-foreground border border-border/30 rounded-[24px] rounded-tl-[4px]"
+                                            ? "bg-primary text-primary-foreground shadow-sm"
+                                            : "bg-muted/50 text-foreground border border-border/30"
                                     )}
                                 >
                                     {message.role === "user" ? (
-                                        <p className="text-sm leading-relaxed whitespace-pre-wrap tracking-tight">{message.content}</p>
+                                        <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
                                     ) : (
-                                        <div className="prose prose-zinc dark:prose-invert prose-sm max-w-none prose-p:leading-relaxed prose-pre:bg-muted/30 prose-pre:border prose-pre:border-border/20 prose-headings:tracking-tighter prose-headings:font-black">
+                                        <div className="prose prose-zinc dark:prose-invert prose-sm max-w-none prose-p:leading-relaxed prose-pre:bg-muted/30 prose-pre:border prose-pre:border-border/20">
                                             <ReactMarkdown>{message.content}</ReactMarkdown>
                                         </div>
                                     )}
                                 </div>
                                 {message.role === "user" && (
-                                    <div className="w-10 h-10 rounded-[16px] bg-muted/40 flex items-center justify-center flex-shrink-0 mt-1 border border-border/40 shadow-soft">
-                                        <User className="w-5 h-5 text-muted-foreground/30" />
+                                    <div className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center flex-shrink-0 mt-1 border border-border">
+                                        <User className="w-5 h-5 text-muted-foreground/50" />
                                     </div>
                                 )}
                             </div>
                         ))
                     )}
                     {loading && (
-                        <div className="flex gap-5">
-                            <div className="w-10 h-10 rounded-[16px] bg-primary/10 flex items-center justify-center border border-primary/20">
+                        <div className="flex gap-4">
+                            <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center border border-primary/20">
                                 <Bot className="w-5 h-5 text-primary" />
                             </div>
-                            <div className="bg-card rounded-[24px] rounded-tl-[4px] px-6 py-4 border border-border/30 shadow-soft flex items-center gap-4">
-                                <div className="flex gap-1.5">
-                                    <span className="w-2 h-2 bg-primary/50 rounded-full animate-bounce [animation-duration:0.8s]" style={{ animationDelay: '0ms' }} />
-                                    <span className="w-2 h-2 bg-primary/50 rounded-full animate-bounce [animation-duration:0.8s]" style={{ animationDelay: '200ms' }} />
-                                    <span className="w-2 h-2 bg-primary/50 rounded-full animate-bounce [animation-duration:0.8s]" style={{ animationDelay: '400ms' }} />
+                            <div className="bg-muted/50 rounded-2xl px-6 py-4 border border-border/30 flex items-center gap-3">
+                                <div className="flex gap-1">
+                                    <span className="w-1.5 h-1.5 bg-primary/40 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                                    <span className="w-1.5 h-1.5 bg-primary/40 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                                    <span className="w-1.5 h-1.5 bg-primary/40 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
                                 </div>
-                                <span className="text-[10px] font-black text-muted-foreground/30 uppercase tracking-[0.3em]">Processing</span>
+                                <span className="text-[10px] font-bold text-muted-foreground/40 uppercase tracking-widest">Assistant is thinking</span>
                             </div>
                         </div>
                     )}
                     <div ref={messagesEndRef} />
                 </div>
 
-                {/* Input Area - Floating Premium Action Bar */}
-                <div className="pt-4 md:py-8 sticky bottom-0 z-20">
-                    <div className="max-w-4xl mx-auto px-6 md:px-8">
-                        <form onSubmit={handleSubmit} className="relative group">
-                            <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-indigo-500/20 rounded-[28px] blur opacity-0 group-focus-within:opacity-100 transition-opacity duration-500" />
-                            <div className="relative flex gap-3 p-2 bg-card/60 backdrop-blur-2xl rounded-[26px] border border-border/40 shadow-premium ring-1 ring-white/5">
+                {/* Input Area - Simple and Clean */}
+                <div className="p-6 md:p-8 sticky bottom-0 bg-gradient-to-t from-background via-background/80 to-transparent">
+                    <div className="max-w-4xl mx-auto">
+                        <form onSubmit={handleSubmit} className="relative shadow-sm focus-within:shadow-md transition-shadow rounded-2xl">
+                            <div className="flex gap-3 p-2 bg-card rounded-2xl border border-border focus-within:border-primary/50 transition-colors">
                                 <div className="flex-1">
                                     <textarea
                                         value={input}
@@ -224,20 +223,20 @@ export default function ChatInterface() {
                                                 handleSubmit(e);
                                             }
                                         }}
-                                        placeholder="Message AI assistant..."
+                                        placeholder="Type your message..."
                                         disabled={loading}
                                         rows={1}
-                                        className="w-full bg-transparent text-foreground placeholder:text-muted-foreground/30 rounded-xl px-5 py-3 focus:outline-none transition-all font-bold tracking-tight resize-none min-h-[48px] max-h-40 custom-scrollbar mt-0.5 text-sm"
+                                        className="w-full bg-transparent text-foreground placeholder:text-muted-foreground/40 rounded-xl px-4 py-3 focus:outline-none transition-all font-medium tracking-tight resize-none min-h-[48px] max-h-40 custom-scrollbar text-sm"
                                     />
                                 </div>
                                 <button
                                     type="submit"
                                     disabled={!input.trim() || loading}
                                     className={cn(
-                                        "h-[48px] w-[48px] rounded-[18px] font-black transition-all flex items-center justify-center flex-shrink-0 self-end mb-0.5 mr-0.5",
+                                        "h-10 w-10 md:h-11 md:w-11 rounded-xl font-bold transition-all flex items-center justify-center flex-shrink-0 self-end mb-1 mr-1",
                                         input.trim() && !loading
-                                            ? "bg-gradient-to-br from-primary to-indigo-600 text-primary-foreground shadow-premium hover:shadow-indigo-500/20 hover:scale-[1.04] active:scale-[0.96]"
-                                            : "bg-muted text-muted-foreground/20 cursor-not-allowed border border-border/10"
+                                            ? "bg-primary text-primary-foreground hover:opacity-90"
+                                            : "bg-muted text-muted-foreground/20 cursor-not-allowed"
                                     )}
                                 >
                                     {loading ? (
@@ -249,8 +248,8 @@ export default function ChatInterface() {
                             </div>
                         </form>
                     </div>
-                    <p className="mt-4 text-[9px] text-center text-muted-foreground/25 font-black uppercase tracking-[0.25em]">
-                        Neural Intelligence Engine • RAG V2.4
+                    <p className="mt-4 text-[10px] text-center text-muted-foreground/40 font-medium">
+                        Enter to send, Shift + Enter for new line
                     </p>
                 </div>
             </div>

@@ -50,20 +50,20 @@ export default function DocumentUpload() {
 
     return (
         <div className="w-full max-w-2xl mx-auto">
-            <div className="py-8 md:py-12">
-                <div className="flex items-center gap-5 mb-10">
-                    <div className="p-4 bg-primary/10 rounded-[22px] border border-primary/20 shadow-sm">
-                        <Upload className="w-7 h-7 text-primary" />
+            <div className="py-6 md:py-10">
+                <div className="flex items-center gap-4 mb-8">
+                    <div className="p-3 bg-primary/10 rounded-xl border border-primary/20">
+                        <Upload className="w-6 h-6 text-primary" />
                     </div>
                     <div>
-                        <h2 className="text-3xl font-bold tracking-tighter text-foreground">Ingest Knowledge</h2>
-                        <p className="text-muted-foreground/60 text-sm font-semibold uppercase tracking-widest mt-0.5">
-                            PDF • TXT • MD Support
+                        <h2 className="text-2xl font-bold tracking-tight text-foreground">Upload Documents</h2>
+                        <p className="text-muted-foreground/60 text-xs font-semibold uppercase tracking-wider mt-0.5">
+                            PDF • TXT • MD
                         </p>
                     </div>
                 </div>
 
-                <div className="space-y-10">
+                <div className="space-y-8">
                     <div className="relative group">
                         <input
                             type="file"
@@ -76,22 +76,22 @@ export default function DocumentUpload() {
                         <label
                             htmlFor="file-upload"
                             className={cn(
-                                "flex items-center justify-center w-full p-16 border-2 border-dashed rounded-[32px] cursor-pointer transition-all",
+                                "flex items-center justify-center w-full p-12 border-2 border-dashed rounded-2xl cursor-pointer transition-all",
                                 file
-                                    ? "border-primary bg-primary/5 shadow-inner"
-                                    : "border-border/40 hover:border-primary/20 bg-muted/10 hover:bg-muted/20 shadow-sm",
+                                    ? "border-primary bg-primary/5"
+                                    : "border-border hover:border-primary/30 bg-muted/20 hover:bg-muted/30",
                                 uploading && "opacity-50 cursor-not-allowed"
                             )}
                         >
                             <div className="text-center">
-                                <div className="w-20 h-20 bg-background rounded-3xl flex items-center justify-center mx-auto mb-6 border border-border/30 group-hover:border-primary/20 transition-all shadow-sm group-hover:scale-105">
-                                    <PlusCircle className={cn("w-10 h-10 transition-colors", file ? "text-primary" : "text-muted-foreground/30")} />
+                                <div className="w-16 h-16 bg-background rounded-xl flex items-center justify-center mx-auto mb-4 border border-border group-hover:border-primary/30 transition-all shadow-sm">
+                                    <PlusCircle className={cn("w-8 h-8 transition-colors", file ? "text-primary" : "text-muted-foreground/40")} />
                                 </div>
-                                <p className="text-foreground font-bold text-xl tracking-tight">
-                                    {file ? file.name : "Select Document"}
+                                <p className="text-foreground font-semibold text-lg">
+                                    {file ? file.name : "Choose file"}
                                 </p>
-                                <p className="text-muted-foreground/40 text-sm mt-2 font-bold uppercase tracking-widest">
-                                    {file ? `${(file.size / 1024).toFixed(1)} KB` : "Drop file anywhere or browse"}
+                                <p className="text-muted-foreground/50 text-xs mt-1 font-medium">
+                                    {file ? `${(file.size / 1024).toFixed(1)} KB` : "Drag and drop or click to browse"}
                                 </p>
                             </div>
                         </label>
@@ -101,21 +101,21 @@ export default function DocumentUpload() {
                         onClick={handleUpload}
                         disabled={!file || uploading}
                         className={cn(
-                            "w-full py-5 px-8 rounded-2xl font-black transition-all flex items-center justify-center gap-4 text-xs tracking-[0.2em] uppercase",
+                            "w-full py-4 px-6 rounded-xl font-bold transition-all flex items-center justify-center gap-3 text-sm",
                             file && !uploading
-                                ? "bg-primary text-primary-foreground shadow-2xl shadow-primary/20 hover:scale-[1.01] active:scale-[0.99] hover:opacity-95"
-                                : "bg-muted text-muted-foreground/30 cursor-not-allowed border border-border/20"
+                                ? "bg-primary text-primary-foreground hover:opacity-90 shadow-sm"
+                                : "bg-muted text-muted-foreground/30 cursor-not-allowed"
                         )}
                     >
                         {uploading ? (
                             <>
                                 <Loader2 className="w-5 h-5 animate-spin" />
-                                Analyzing...
+                                Processing...
                             </>
                         ) : (
                             <>
                                 <Upload className="w-5 h-5" />
-                                Process & Index
+                                Upload & Index
                             </>
                         )}
                     </button>
